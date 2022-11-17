@@ -1,0 +1,277 @@
+%%
+% The BIThesis Template for Presentation
+%
+% 北京理工大学毕业设计（论文） —— 使用 XeLaTeX 编译
+%
+% Copyright 2021-2022 BITNP
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Feng Kaiyu.
+%
+% Compile with: xelatex -> biber -> xelatex -> xelatex
+%%
+
+\documentclass[
+  %% ====== 这一部分选项将传递给 ctexbeamer，你也可以添加其他的选项 ====
+  % 修改 `aspectratio` 可以修改画布比例 比如 `43` 或者 `169`
+  aspectratio=169,
+  presentation,
+  %% ============================================================
+  % 设置封面的图片
+  titlegraphic=./images/bit.png,
+  % 设置每页标题的 logo
+  framelogo=./images/bit.png
+]{bitbeamer}
+
+%% --> 基本信息设置
+\title{从 BIT-Thesis 到 BIThesis}
+\subtitle{助力北理学子高质量学术写作}
+\author{冯开宇}
+\institute{北京理工大学}
+\date{\zhtoday}
+
+\usefonttheme{serif}              % 使用衬线字体
+\usefonttheme{professionalfonts}  % 数学公式字体
+
+% 引入你需要使用的包
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{color}
+\usepackage{listings}
+
+\setbeamertemplate{caption}[numbered]
+
+% 使用 bibtex
+\usepackage[
+  backend=biber,
+  style=gb7714-2015,
+  gbalign=gb7714-2015,
+  gbnamefmt=lowercase,
+  gbpub=false,
+  doi=false,
+  url=false,
+  eprint=false,
+  isbn=false,
+]{biblatex}
+
+\addbibresource{ref.bib}
+
+% 设置段落间距
+\parindent2em
+
+\begin{document}
+
+% 封面
+\frame{\titlepage}
+
+%
+%% --> 目录结构
+%
+\begin{frame}{目录}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+%% 每一节开头显示目录，并高亮当前节的主题
+\AtBeginSection[]{\frame{\tableofcontents[currentsection,hideallsubsections]}}
+
+\section{BIThesis 项目简介}
+
+\begin{frame}[t]
+  \frametitle{BIThesis 项目简介}
+  BIThesis 从 2019 年开始提供北理工本科毕设的 LaTeX 模板。
+  在后续的更新和维护中，BIThesis 也提供了本科全英文专业毕设模板、本科毕设外文翻译模板、计算机学院开题报告等等模板。
+
+  今年，BIThesis 从 BIT-Thesis 项目中迁移了研究生学位论文模板。
+  并在暑假期间，针对同学们的现有反馈，
+  对模板进行了重写，使得模板更加易用，更加符合北理工的毕设要求。
+
+  排版样式参考：
+  \begin{enumerate}
+    \item 《北京理工大学研究生学位论文撰写规范》
+    \item \href{https://grd.bit.edu.cn/xwgz/xwgz2/wjxz_xwgz/b119746.htm}{研究生学位论文模版 Word 版本 - 2018}
+    \item BIT-Thesis 项目
+    \item 部分同学的反馈与日常使用习惯
+  \end{enumerate}
+\end{frame}
+
+
+
+
+%% --> 正式内容开始
+%
+\section{BIThesis 相比原有项目有什么优点？}    % 第 1 节
+
+\begin{frame}[t] % 第一页
+  \frametitle{BIThesis 相比原有项目有什么优点？}
+
+  \begin{itemize}
+    \item 修复了原有项目中的一些细节问题。
+    \item 使用 LaTeX3，提供给用户更灵活、强大的配置能力。
+    \item 更接近《北京理工大学研究生学位论文撰写规范》。
+    \item 持续维护的项目。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{BIThesis 相比原有项目有什么优点？}
+  \framesubtitle{修复原有细节问题}
+
+  \begin{itemize}
+    \item 书脊页竖排，没有考虑到存在英文的情况。
+    \begin{itemize}
+      \item 针对英文单词，提供了 90 度旋转排版方案。
+      \item 针对英文缩写，采用竖排方案。
+    \end{itemize}
+    \item 封面个人信息项的下划线采用了固定长度，没有兼顾到不同内容长度。
+    \begin{itemize}
+      \item 模板会自动按照最长信息长度，自动计算下划线长度。
+      \item 提供了换行排版的方式。
+    \end{itemize}
+    \item 没有提供盲审功能。
+    \begin{itemize}
+      \item 可以通过选项开启盲审功能，此时生成的论文将按照盲审格式，隐去存在个人信息的部分。
+    \end{itemize}
+    \item 目录页出现“摘要”的索引。
+    \begin{itemize}
+      \item 默认情况下，不显示“摘要”。
+      \item 用户可以通过选项自行打开。
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{BIThesis 相比原有项目有什么优点？}
+  \framesubtitle{使用 LaTeX3，提供给用户更灵活、强大的配置能力}
+
+  目前广泛使用的版本是 LaTeX2e。其当初设计时，\textbf{并没有并没有很好地实现内容与格式分离的原则}，导致宏包的代码难写、可读性差。
+  
+  LaTeX3\footnote{已经发布了十年以上，目前已经被主流宏包采用。}，为了解决这个问题，提供了更统一的编程层语法。
+
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{BIThesis 相比原有项目有什么优点？}
+  \framesubtitle{使用 LaTeX3，提供给用户更灵活、强大的配置能力}
+  
+  \vspace{-0.8cm}
+
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.80\textwidth]{./images/1.png}
+    \end{center}
+  \end{figure}
+  
+\end{frame}
+
+
+\begin{frame}[t]
+  \frametitle{BIThesis 相比原有项目有什么优点？}
+  \framesubtitle{更接近《北京理工大学研究生学位论文撰写规范》}
+
+  BIThesis 首先保证论文的格式符合《北京理工大学研究生学位论文撰写规范》。
+  
+  对于没有规定的内容，BIThesis 会尽可能地保持与原有项目的一致性。
+
+  对于可能存在争议的样式，BIThesis 会提供多种选项（以及文档），让用户自行选择。
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{BIThesis 相比原有项目有什么优点？}
+  \framesubtitle{持续维护的项目}
+
+  BIThesis 目前包括：
+  \begin{itemize}
+    \item 项目主页 \url{https://bithesis.bitnp.net}
+    \item 项目源代码仓库 \url{https://github.com/BITNP/BIThesis}
+    \item 项目使用手册 (附于用户下载的文件中)
+  \end{itemize}
+
+  \vspace{0.5cm}
+  
+  项目已有：
+  \begin{itemize}
+    \item 4000 余次下载量。
+    \item 15 名贡献者先后参与贡献代码，以及更多同学提供意见和建议。
+    \item 有 QQ 交流社区。
+    \item 完整的文档、测试和发布流程。
+  \end{itemize}
+\end{frame}
+
+\section{BIThesis 的维护以及其他服务}
+
+\begin{frame}[t]
+  \frametitle{BIThesis 的维护以及其他服务}
+  \framesubtitle{用户可以通过多种渠道使用 BIThesis}
+
+\begin{itemize}
+  \item 可以通过 Github Release 下载最新的模板压缩包。
+  \item 可以通过 Overleaf 平台，进行在线的 LaTeX 写作。
+  \item BIThesis 的模板样式已经发布到 CTAN 中，用户可以直接引入后使用。 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[c]
+  \frametitle{BIThesis 的维护以及其他服务}
+  \framesubtitle{多种测试方法}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{images/2.png}
+      \caption{在代码合并之前的自动化测试}\label{fig:1-1}
+  \end{subfigure}
+  \begin{subfigure}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{images/3.png}
+      \caption{回归测试，比较两个版本的区别}\label{fig:1-2}
+  \end{subfigure}
+  \end{figure}
+  
+在发布新版本之前，BIThesis 有多种代码测试保证其正确性。
+\end{frame}
+
+
+\begin{frame}[c]
+  \frametitle{BIThesis 的维护以及其他服务}
+  \framesubtitle{规范的版本发布流程}
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{images/release_workflow.png}
+  \end{center}
+  \caption{}
+\end{figure}
+
+在新版本发布的时候，我们会同步更新包括 CTAN, Overleaf, Github Releases 在内多个平台的版本，
+保证通过各个方式使用的用户都能获得最新的代码。
+
+\end{frame}
+
+\begin{frame}[c]
+  \frametitle{BIThesis 的维护以及其他服务}
+  \framesubtitle{使用、交流方式}
+
+  \begin{itemize}
+    \item 用户可以通过使用手册了解模板的各个参数的使用方式。
+    \item 用户可以通过 Github Issues 提交 Bug 或者建议。
+    \item 可以加入 QQ 交流群进行讨论或者咨询。
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[c]
+
+  谢谢!
+  
+\end{frame}
+
+\end{document}
